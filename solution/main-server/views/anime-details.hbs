@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Anime Details</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
+</head>
+<body class="bg-dark text-light">
+
+<div id="anime-details" class="container my-4">
+
+    <section class="row align-items-start mb-4">
+        <div class="col-md-3 text-center mb-3 mb-md-0">
+            <img id="anime-image"
+                 src="/placeholder-anime.jpg"
+                 alt="Anime cover"
+                 class="img-fluid rounded shadow-sm">
+        </div>
+
+        <div class="col-md-9">
+            <h1 id="anime-title" class="h2 mb-1">Caricamento...</h1>
+            <h2 id="anime-title-jp" class="h5 text-muted mb-3"></h2>
+
+            <div class="mb-2">
+                <p id="anime-type-status" class="mb-1"></p>
+                <p id="anime-score" class="mb-1"></p>
+                <p id="anime-dates" class="mb-3"></p>
+            </div>
+
+            <a id="anime-mal-link"
+               href="#"
+               target="_blank"
+               rel="noopener noreferrer"
+               class="btn btn-primary btn-sm">
+                View on MyAnimeList
+            </a>
+        </div>
+    </section>
+
+    <ul class="nav nav-tabs mb-3" id="anime-tabs">
+        <li class="nav-item">
+            <button class="nav-link active" data-section="details-section">Details</button>
+        </li>
+        <li class="nav-item">
+            <button class="nav-link" data-section="characters-section">Characters</button>
+        </li>
+        <li class="nav-item">
+            <button class="nav-link" data-section="stats-section">Stats</button>
+        </li>
+        <li class="nav-item">
+            <button class="nav-link" data-section="voice-section">Voice Actors</button>
+        </li>
+        <li class="nav-item">
+            <button class="nav-link" data-section="recommendations-section">Recommendations</button>
+        </li>
+        <li class="nav-item">
+            <button class="nav-link" data-section="reviews-section">Reviews</button>
+        </li>
+    </ul>
+
+    <!--  Details  -->
+    <section id="details-section">
+        <section class="row g-4 mb-4">
+            <div class="col-lg-8">
+                <div class="card bg-secondary text-light h-100">
+                    <div class="card-body">
+                        <h3 class="h5 card-title">Synopsis</h3>
+                        <p id="anime-synopsis-text" class="card-text">Caricamento...</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="card bg-secondary text-light h-100">
+                    <div class="card-body">
+                        <h3 class="h5 card-title">Stats (summary)</h3>
+                        <div class="anime-stats-summary mb-3">
+                            <p id="anime-stats-total" class="mb-1">Total users: 0</p>
+                            <p id="anime-stats-watching" class="mb-1">Watching: 0</p>
+                            <p id="anime-stats-completed" class="mb-1">Completed: 0</p>
+                            <p id="anime-stats-onhold" class="mb-1">On hold: 0</p>
+                            <p id="anime-stats-dropped" class="mb-1">Dropped: 0</p>
+                            <p id="anime-stats-plantowatch" class="mb-0">Plan to watch: 0</p>
+                        </div>
+                        <small class="text-light-50">For full stats see the "Stats" tab.</small>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Characters (solo primi 8) -->
+        <section class="mb-4">
+            <h3 class="h4 mb-3">Characters (top 8)</h3>
+            <div id="anime-characters-list" class="row g-3">
+                <!-- top 8 characters, riempiti da JS -->
+            </div>
+            <small class="text-light-50">For all characters see the "Characters" tab.</small>
+        </section>
+
+        <!-- Voice actors (riassunto, filtrabile) -->
+        <section class="mb-4">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h3 class="h4 mb-0">Voice Actors</h3>
+                <button id="see-all-voice-actors" class="btn btn-outline-primary btn-sm">
+                    See All Voice Actors
+                </button>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-striped table-dark table-sm align-middle">
+                    <thead class="table-secondary text-dark">
+                    <tr>
+                        <th>Character</th>
+                        <th>Role</th>
+                        <th>Voice Actor</th>
+                        <th>
+                            Language
+                            <select id="voice-language-filter"
+                                    class="form-select form-select-sm d-inline-block w-auto ms-2">
+                            </select>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody id="anime-voice-actors-body">
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </section>
+
+    <!-- Characters (tutti) -->
+    <section id="characters-section" style="display: none;">
+        <h3 class="h4 mb-3">All Characters</h3>
+        <div id="anime-characters-all" class="row g-3">
+            <!-- tutti i personaggi, riempiti da JS -->
+        </div>
+    </section>
+
+    <!-- Stats -->
+    <section id="stats-section" style="display: none;">
+        <h3 class="h4 mb-3">Stats</h3>
+        <div class="card bg-secondary text-light">
+            <div class="card-body">
+                <h4 class="h6">Score distribution</h4>
+                <div class="table-responsive">
+                    <table class="table table-sm table-dark table-bordered align-middle mb-0">
+                        <thead class="table-secondary text-dark">
+                        <tr>
+                            <th>Score</th>
+                            <th>Votes</th>
+                            <th>Percentage</th>
+                        </tr>
+                        </thead>
+                        <tbody id="anime-score-distribution">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Voice Actors -->
+    <section id="voice-section" style="display: none;">
+        <h3 class="h4 mb-3">All Voice Actors</h3>
+
+        <div class="mb-3">
+            Language
+            <select id="voice-all-language-filter" class="form-select form-select-sm d-inline-block w-auto ms-2">
+            </select>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-striped table-dark table-sm align-middle">
+                <thead class="table-secondary text-dark">
+                <tr>
+                    <th id="va-sort-character" data-sort-key="characterName">Character</th>
+                    <th id="va-sort-role" data-sort-key="role">Role</th>
+                    <th id="va-sort-actor" data-sort-key="personName">Voice Actor</th>
+                    <th id="va-sort-language" data-sort-key="language">Language</th>
+                </tr>
+                </thead>
+                <tbody id="anime-voice-actors-all">
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Recommendations -->
+    <section id="recommendations-section" style="display: none;">
+        <h3 class="h4 mb-3">Recommended Anime</h3>
+        <div id="anime-recommendations" class="row g-3">
+            <!-- raccomandazioni popolate da JS -->
+        </div>
+    </section>
+
+    <!-- Reviews -->
+    <section id="reviews-section" style="display:none;">
+        <h3 class="h4 mb-3">User Reviews</h3>
+        <div id="anime-reviews-container" class="list-group mb-3">
+            <!-- riempito da JS -->
+        </div>
+        <nav>
+            <ul class="pagination pagination-sm" id="reviews-pagination">
+                <!-- paginazione riempita da JS -->
+            </ul>
+        </nav>
+    </section>
+
+
+</div>
+
+<template id="character-card-template">
+    <div class="col-6 col-md-4 col-lg-3">
+        <div class="card h-100 bg-secondary text-light">
+            <img src="" alt="" class="card-img-top character-img" style="height: 200px; object-fit: cover;">
+            <div class="card-body p-2">
+                <p class="character-name h6 mb-1"></p>
+                <p class="character-role small text-light-50 mb-0"></p>
+            </div>
+        </div>
+    </div>
+</template>
+
+<template id="recommendation-card-template">
+    <div class="col-6 col-md-4 col-lg-3">
+        <div class="card h-100 bg-secondary text-light cursor-pointer" role="button">
+            <img src="" alt="" class="card-img-top anime-img" style="height: 200px; object-fit: cover;">
+            <div class="card-body p-2">
+                <h6 class="card-title mb-1"></h6>
+                <p class="card-text small mb-1"><span class="badge bg-info"></span></p>
+            </div>
+        </div>
+    </div>
+</template>
+
+<!-- JavaScript principale -->
+<script src="/javascripts/anime-details.js"></script>
+
+</body>
+</html>

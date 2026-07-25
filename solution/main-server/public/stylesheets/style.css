@@ -1,0 +1,32 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+.anime-list-item {
+  transition: background-color 0.15s ease, transform 0.15s ease;
+}
+
+.anime-list-item:hover {
+  background-color: #343a40; /* un po' più chiaro del bg-dark */
+  cursor: pointer;
+  transform: scale(1.01);
+}
+
+.anime-poster {
+  width: 64px;
+  height: 96px;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-right: 1rem;
+}
+
+.hover-scale:hover {
+  transform: scale(1.02);
+  transition: transform 0.2s ease-in-out;
+  cursor: pointer;
+}
